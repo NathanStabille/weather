@@ -34,8 +34,6 @@ export const Light = createTheme({
     fontFamily: "Lexend",
   },
 
-
-
   palette: {
     primary: {
       main: "#F1F5F7",

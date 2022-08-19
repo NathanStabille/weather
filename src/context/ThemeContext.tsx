@@ -1,5 +1,5 @@
 import { PaletteMode, ThemeProvider } from "@mui/material";
-import { createContext, ReactNode, useMemo, useState } from "react";
+import { createContext, ReactNode, useContext, useMemo, useState } from "react";
 import { Dark, Light } from "../theme/Theme";
 
 interface IThemeContextData {
@@ -12,6 +12,10 @@ interface IAppThemeProviderProps {
 }
 
 const ThemeContext = createContext({} as IThemeContextData);
+
+export const useAppThemeContext = () => {
+  return useContext(ThemeContext);
+};
 
 export const AppThemeProvider: React.FC<IAppThemeProviderProps> = ({
   children,

@@ -1,4 +1,4 @@
-export type IWeatherData = {
+export type WeatherType= {
   city: string;
   country: string;
   weather: string;

@@ -1,17 +1,3 @@
-// weather
-// pressure
-// visibility
-// humadity
-//
-// wind
-// clouds
-// sunset
-// sunrise
-
-//weatherTomorrow with name city
-//city and state name coutry name
-//weatherPrediciton => next 5 days
-
 export const getWeatherAll = async (city: string, units: string) => {
   const response = await fetch(
     `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&appid=5ed414bf791291f37233f9f86499b348`
