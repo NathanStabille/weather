@@ -1,16 +1,20 @@
-import { InputSearch } from "./components/InputSearch/InputSearch";
-import { useWeatherContext } from "./context/WeatherContext";
-import { Layout } from "./layout/Layout";
+import { Box, useTheme } from "@mui/material";
+import { Search } from "./components/Search/Search";
+import { WeatherBox } from "./components/WeatherBox/WeatherBox";
 
 export const App = () => {
-  const { weather } = useWeatherContext();
+  const theme = useTheme();
 
   return (
-    <Layout>
-      <InputSearch />
-
-      <h1> {weather.city} </h1>
-      <h1>Temp {weather.temp} </h1>
-    </Layout>
+    <Box
+      width="100vw"
+      height="100vh"
+      padding="3%"
+      bgcolor={theme.palette.background.paper}
+      sx={{ userSelect: "none" }}
+    >
+      <Search />
+      <WeatherBox />
+    </Box>
   );
 };

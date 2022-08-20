@@ -31,7 +31,7 @@ export const WeatherProvider: React.FC<IWeatherProviderProps> = ({
     tempMin: 16,
     humidity: 86,
     pressure: 1028,
-    visibility: 6000,
+    visibility: 6123,
     windSpeed: 3.6,
     windDeg: 220,
     clouds: 100,
