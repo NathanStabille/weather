@@ -1,6 +1,8 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { useUnitsContext } from "../../context/UnitsContext";
 import { useWeatherContext } from "../../context/WeatherContext";
+import landscape from "../../assets/landscapes.jpg";
+import { url } from "inspector";
 
 export const WeatherBox = () => {
   const theme = useTheme();
@@ -11,11 +13,11 @@ export const WeatherBox = () => {
   return (
     <Box
       width="550px"
-      bgcolor={"#B1B7EE"}
       borderRadius="30px"
       padding={5}
       display="flex"
       flexDirection="column"
+      sx={{ backgroundImage: `url(${landscape})`, backgroundSize: "550px" }}
     >
       <Box display="flex" alignItems="center" justifyContent="space-between">
         <Box display="flex" alignItems="center">
