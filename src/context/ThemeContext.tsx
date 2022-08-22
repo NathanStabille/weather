@@ -20,7 +20,7 @@ export const useAppThemeContext = () => {
 export const AppThemeProvider: React.FC<IAppThemeProviderProps> = ({
   children,
 }) => {
-  const [themeName, setThemeName] = useState<PaletteMode>("light");
+  const [themeName, setThemeName] = useState<PaletteMode>("dark");
 
   const toggleTheme = () => {
     setThemeName(themeName === "light" ? "dark" : "light");

@@ -6,7 +6,7 @@ import clouds from "../../assets/clouds.png";
 import wind from "../../assets/wind.png";
 import forest from "../../assets/forest.jpg";
 
-export const InfoBox = () => {
+export const WeatherInfo = () => {
   const { weather } = useWeatherContext();
   const { units } = useUnitsContext();
   const theme = useTheme();

@@ -1,8 +1,9 @@
 import { Box, Divider, useTheme } from "@mui/material";
-import { InfoBox } from "./components/InfoBox/InfoBox";
-import { Search } from "./components/Search/Search";
-import { SunBox } from "./components/SunBox/SunBox";
-import { WeatherBox } from "./components/WeatherBox/WeatherBox";
+import { WeatherInfo } from "./components/WeatherInfo/WeatherInfo";
+import { SearchCity } from "./components/SearchCity/SearchCity";
+import { SunsetSunrise } from "./components/SunsetSunrise/SunsetSunrise";
+import { CurrentWeather } from "./components/CurrentWeather/CurrentWeather";
+import { WeatherPrediction } from "./components/WeatherPrediction/WeatherPredition";
 
 export const App = () => {
   const theme = useTheme();
@@ -18,11 +19,11 @@ export const App = () => {
       sx={{ userSelect: "none" }}
     >
       <Box display="flex" flexDirection="column">
-        <Search />
+        <SearchCity />
 
         <Box display="flex">
-          <WeatherBox />
-          <InfoBox />
+          <CurrentWeather />
+          <WeatherInfo />
         </Box>
       </Box>
       <Divider
@@ -31,11 +32,12 @@ export const App = () => {
         sx={{
           marginX: 5,
           backgroundColor: theme.palette.text.primary,
-          opacity: 0.5,
+          opacity: 0.3,
         }}
       />
       <Box paddingX={3} width="100%">
-        <SunBox />
+        <SunsetSunrise />
+        <WeatherPrediction />
       </Box>
     </Box>
   );

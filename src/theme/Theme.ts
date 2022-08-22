@@ -9,7 +9,7 @@ export const Dark = createTheme({
     primary: {
       main: "#F1F5F7",
       dark: "#DB5436",
-      light: "",
+      light: "#22272E",
       contrastText: "#0E080C",
     },
 
@@ -41,6 +41,18 @@ export const Dark = createTheme({
         },
       },
     },
+
+    MuiOutlinedInput: {
+      styleOverrides: {
+        input: {
+          boxSizing: "border-box",
+          fontSize: "1rem",
+        },
+        notchedOutline: {
+          border: "none",
+        },
+      },
+    },
   },
 });
 
@@ -53,7 +65,7 @@ export const Light = createTheme({
     primary: {
       main: "#F1F5F7",
       dark: "#00BFB3",
-      light: "",
+      light: "#D2DAE2",
       contrastText: "#0E080C",
     },
 
@@ -82,6 +94,17 @@ export const Light = createTheme({
         },
         body: {
           transition: "0.3s",
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        input: {
+          boxSizing: "border-box",
+          fontSize: "1rem",
+        },
+        notchedOutline: {
+          border: "none",
         },
       },
     },

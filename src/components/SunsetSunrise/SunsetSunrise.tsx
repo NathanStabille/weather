@@ -6,7 +6,7 @@ import sunrise from "../../assets/sunrise.png";
 import sunset from "../../assets/sunset.png";
 import sunAnimation from "../../assets/sunrise-sunset-animation.json";
 
-export const SunBox = () => {
+export const SunsetSunrise = () => {
   const { weather } = useWeatherContext();
   const { units } = useUnitsContext();
   const theme = useTheme();

@@ -1,4 +1,3 @@
-
 export const getWeather = async (city: string, units: string) => {
   const response = await fetch(
     `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&appid=${process.env.REACT_WEATHER_API_KEY}`
@@ -25,7 +24,11 @@ export const getWeather = async (city: string, units: string) => {
   };
 };
 
-export const getLocationBrowser = async (lat: number, long: number, units = 'metric') => {
+export const getLocationBrowser = async (
+  lat: number,
+  long: number,
+  units = "metric"
+) => {
   const response = await fetch(
     ` https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=${units}&appid=${process.env.REACT_WEATHER_API_KEY}`
   ).then((res) => res.json());

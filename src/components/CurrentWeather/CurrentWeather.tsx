@@ -3,7 +3,7 @@ import { useUnitsContext } from "../../context/UnitsContext";
 import { useWeatherContext } from "../../context/WeatherContext";
 import landscape from "../../assets/landscapes.jpg";
 
-export const WeatherBox = () => {
+export const CurrentWeather = () => {
   const theme = useTheme();
 
   const { weather } = useWeatherContext();
@@ -25,7 +25,7 @@ export const WeatherBox = () => {
             src={`http://openweathermap.org/img/wn/${weather.icon}@2x.png`}
             alt=""
             style={{
-              backgroundColor: theme.palette.background.default,
+              backgroundColor: theme.palette.primary.light,
               borderRadius: "50%",
               maxWidth: "50px",
             }}
@@ -36,6 +36,7 @@ export const WeatherBox = () => {
             <Typography>What's the weather.</Typography>
           </Box>
         </Box>
+
         {/* FeelsLike */}
         <Box display="flex" alignItems="center">
           <Typography mr={1}>Feels Like</Typography>
@@ -51,6 +52,7 @@ export const WeatherBox = () => {
           </Typography>
         </Box>
       </Box>
+
       {/* Temp */}
       <Typography marginTop={5} fontSize="3rem">{`${Math.round(
         weather.temp
