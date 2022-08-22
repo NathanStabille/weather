@@ -77,8 +77,7 @@ export const WeatherBox = () => {
         {/* visibility */}
         <Box
           padding={3}
-          bgcolor={theme.palette.secondary.light}
-          color={theme.palette.text.primary}
+          bgcolor={theme.palette.primary.dark}
           borderRadius={5}
           textAlign="center"
         >

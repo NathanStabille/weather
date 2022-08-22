@@ -2,6 +2,7 @@ import {
   NightsStay,
   LightMode,
   Search as SearchIcon,
+  ArrowDropDown,
 } from "@mui/icons-material";
 import {
   Autocomplete,
@@ -111,7 +112,7 @@ export const Search = () => {
           display="flex"
         >
           <Input
-            placeholder="Search Location..."
+            placeholder="Search city..."
             disableUnderline={true}
             onChange={(e) => setInputText(e.target.value)}
             onKeyDown={(e) =>
@@ -140,9 +141,13 @@ export const Search = () => {
             color: theme.palette.text.primary,
             fontSize: "1.5rem",
             marginLeft: 2,
+            ":hover": {
+              backgroundColor: theme.palette.background.default,
+            },
           }}
         >
           {`${units.toUpperCase()}°`}
+          <ArrowDropDown />
         </Button>
         <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
           <MenuItem onClick={() => selectUnits("c")}>C°</MenuItem>

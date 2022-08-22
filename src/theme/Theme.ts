@@ -8,7 +8,7 @@ export const Dark = createTheme({
   palette: {
     primary: {
       main: "#F1F5F7",
-      dark: "",
+      dark: "#DB5436",
       light: "",
       contrastText: "#0E080C",
     },
@@ -25,7 +25,7 @@ export const Dark = createTheme({
     },
 
     background: {
-      default: "#1C2023",
+      default: "#100F14",
       paper: "#100F14",
     },
   },
@@ -52,7 +52,7 @@ export const Light = createTheme({
   palette: {
     primary: {
       main: "#F1F5F7",
-      dark: "",
+      dark: "#00BFB3",
       light: "",
       contrastText: "#0E080C",
     },
@@ -69,7 +69,7 @@ export const Light = createTheme({
     },
 
     background: {
-      default: "#D2DAE2",
+      default: "#F7F7F9",
       paper: "#F7F7F9",
     },
   },
