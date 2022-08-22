@@ -1,5 +1,5 @@
 import { Box, useTheme } from "@mui/material";
-import { AirQualityBox } from "./components/AirQualityBox/AirQualityBox";
+import { InfoBox } from "./components/InfoBox/InfoBox";
 import { Search } from "./components/Search/Search";
 import { WeatherBox } from "./components/WeatherBox/WeatherBox";
 
@@ -12,13 +12,15 @@ export const App = () => {
       height="100vh"
       padding="3%"
       bgcolor={theme.palette.background.paper}
+      display="flex"
+      flexDirection="column"
       sx={{ userSelect: "none" }}
     >
       <Search />
 
       <Box display="flex">
         <WeatherBox />
-        <AirQualityBox />
+        <InfoBox />
       </Box>
     </Box>
   );
