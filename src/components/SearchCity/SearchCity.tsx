@@ -18,12 +18,14 @@ import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import { useAppThemeContext } from "../../context/ThemeContext";
 import { useUnitsContext } from "../../context/UnitsContext";
 import { useWeatherContext } from "../../context/WeatherContext";
-import { getLocationBrowser, getWeather } from "../../api/weatherApi";
+import { getWeather } from "../../api/weatherApi";
 import { geoApiOptions, GEO_API_URL } from "../../api/geoCitiesApi";
 
 interface IAutoCompleteData {
   label: string;
-  value: number;
+  value: string;
+  latitude: number;
+  longitude: number;
 }
 
 export const SearchCity = () => {
@@ -31,17 +33,21 @@ export const SearchCity = () => {
 
   //contexts -----------------------------------------------------
   const { themeName, toggleTheme } = useAppThemeContext();
-  const { weather, setWeather } = useWeatherContext();
+  const { setWeather } = useWeatherContext();
 
   //autocomplete states -----------------------------------------------------
   const [autoCompleteData, setAutoCompleteData] = useState(
     [] as IAutoCompleteData[]
   );
   const [inputText, setInputText] = useState("");
-  const [value, setValue] = useState<IAutoCompleteData | null>(null);
-
-  // function location browser state -----------------------------------------------------
-  const [locationBrowser, setLocationBrowser] = useState(false);
+  const [autoCompleteItems, setAutoCompleteItems] = useState<IAutoCompleteData>(
+    {
+      label: "",
+      value: "",
+      latitude: 0,
+      longitude: 0,
+    }
+  );
 
   // button states -----------------------------------------------------
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -59,8 +65,10 @@ export const SearchCity = () => {
         setAutoCompleteData(
           response.data.map((city: any) => {
             return {
-              label: `${city.name}, ${city.region}, ${city.country}`,
-              value: `${city.latitude} ${city.longitude}`,
+              label: `${city.city}, ${city.country}`,
+              value: `${city.city}, ${city.country}`,
+              latitude: city.latitude,
+              longitude: city.longitude,
             };
           })
         );
@@ -72,7 +80,6 @@ export const SearchCity = () => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
     loadOptions(value);
-    setInputText(value);
   };
 
   // identify units from value button -----------------------------------------------------
@@ -100,40 +107,33 @@ export const SearchCity = () => {
 
   //function get data weather from api ------------------------------
 
-  const getWeatherInput = async (city: string, unit: string) => {
-    if (inputText !== "") {
-      // setWeather(await getWeather(city, unit));
+  const getWeatherInput = async (lat: number, long: number, unit: string) => {
+    if (autoCompleteItems.value !== "") {
+      const weatherRes = await getWeather(lat, long, unit);
+      setWeather({ city: autoCompleteItems.value, ...weatherRes });
       setInputText("");
+      setAutoCompleteItems({
+        label: "",
+        value: autoCompleteItems.value,
+        latitude: autoCompleteItems.latitude,
+        longitude: autoCompleteItems.longitude,
+      });
     }
   };
 
   // update units weather -----------------------------------------
   useEffect(() => {
     const updateUnit = async () => {
-      inputText === "" &&
-        setWeather(await getWeather(weather.city, whichUnit()));
+      const weatherRes = await getWeather(
+        autoCompleteItems.latitude,
+        autoCompleteItems.longitude,
+        whichUnit()
+      );
+      setWeather({ city: autoCompleteItems.value, ...weatherRes });
     };
 
     updateUnit();
   }, [units]);
-
-  // function for location of user
-  // useEffect(() => {
-  //   const weatherBrowserLocation = () => {
-  //     navigator.geolocation.getCurrentPosition(async (position) => {
-  //       const latitude = position.coords.latitude;
-  //       const longitude = position.coords.longitude;
-
-  //       setLocationBrowser(true);
-  //       setWeather(await getLocationBrowser(latitude, longitude));
-  //     });
-  //   };
-
-  //   weatherBrowserLocation();
-  // }, []);
-
-  console.log(inputText);
-  console.log(value);
 
   return (
     <Box
@@ -171,20 +171,24 @@ export const SearchCity = () => {
             freeSolo
             fullWidth
             onChange={(event: any, newValue: any) => {
-              setValue(newValue);
+              setAutoCompleteItems(newValue);
             }}
             disableClearable
             options={autoCompleteData}
-            value={value as IAutoCompleteData}
+            value={autoCompleteItems as IAutoCompleteData}
             renderInput={(params) => (
               <TextField
                 {...params}
                 placeholder="Search city..."
                 onChange={handleChange}
                 onKeyDown={(e) =>
-                  e.key === "Enter" && getWeatherInput(inputText, whichUnit())
+                  e.key === "Enter" &&
+                  getWeatherInput(
+                    autoCompleteItems.latitude,
+                    autoCompleteItems.longitude,
+                    whichUnit()
+                  )
                 }
-                value={inputText}
                 sx={{
                   height: "100%",
                   display: "flex",
@@ -197,7 +201,13 @@ export const SearchCity = () => {
 
           <IconButton
             sx={{ color: theme.palette.text.primary }}
-            onClick={() => getWeatherInput(inputText, whichUnit())}
+            onClick={() =>
+              getWeatherInput(
+                autoCompleteItems.latitude,
+                autoCompleteItems.longitude,
+                whichUnit()
+              )
+            }
           >
             <SearchIcon fontSize="large" />
           </IconButton>

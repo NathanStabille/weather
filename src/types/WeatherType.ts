@@ -1,5 +1,5 @@
 export type WeatherType= {
-  city: string;
+  city?: string;
   country: string;
   weather: string;
   climate: string;
