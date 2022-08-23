@@ -1,9 +1,21 @@
-import { createContext, ReactNode, useContext, useState } from "react";
-import { WeatherType } from "../types/WeatherType";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { Type } from "typescript";
+import { getCurrentWeather, getForecast } from "../services/weatherApi";
+import { CurrentWeatherType } from "../types/WeatherType";
 
 interface IWeatherData {
-  weather: WeatherType;
-  setWeather: (weather: WeatherType) => void;
+  currentWeather: CurrentWeatherType;
+  setCurrentWeather: (currentWeather: CurrentWeatherType) => void;
+  dailyWeather: Type[];
+  setDailyWeather: (dailyWeather: []) => void;
+  forecast: Type[];
+  setForecast: (forecast: []) => void;
 }
 
 interface IWeatherProviderProps {
@@ -19,28 +31,42 @@ export const useWeatherContext = () => {
 export const WeatherProvider: React.FC<IWeatherProviderProps> = ({
   children,
 }) => {
-  const [weather, setWeather] = useState<WeatherType>({
-    city: "Rio de Janeiro",
-    country: "BR",
-    weather: "Clouds",
-    climate: "overcast clouds",
-    feelsLike: 16.76,
-    icon: "04n",
-    temp: 16.78,
-    tempMax: 18.86,
-    tempMin: 16,
-    humidity: 86,
-    pressure: 1028,
-    visibility: 6123,
-    windSpeed: 3.6,
-    windDeg: 220,
-    clouds: 100,
-    sunset: 1660941504,
-    sunrise: 1660900492,
-  });
+  const [currentWeather, setCurrentWeather] = useState(
+    {} as CurrentWeatherType
+  );
+
+  const [dailyWeather, setDailyWeather] = useState([]);
+  const [forecast, setForecast] = useState([]);
+
+  // useEffect(() => {
+  //   const get = async () => {
+  //     const daily = await getForecast(-22.9068, -43.1729)
+  //     setDailyWeather(daily[0])
+  //   };
+
+  //   get();
+  // }, []);
+
+  // useEffect(() => {
+  //   const get = async () => {
+  //     const daily = await getForecast(-22.9068, -43.1729)
+  //     setForecast(daily.slice(1))
+  //   };
+
+  //   get();
+  // }, []);
 
   return (
-    <WeatherContext.Provider value={{ weather, setWeather }}>
+    <WeatherContext.Provider
+      value={{
+        currentWeather,
+        setCurrentWeather,
+        dailyWeather,
+        setDailyWeather,
+        forecast,
+        setForecast,
+      }}
+    >
       {children}
     </WeatherContext.Provider>
   );

@@ -4,9 +4,11 @@ import { SearchCity } from "./components/SearchCity/SearchCity";
 import { SunsetSunrise } from "./components/SunsetSunrise/SunsetSunrise";
 import { CurrentWeather } from "./components/CurrentWeather/CurrentWeather";
 import { WeatherPrediction } from "./components/WeatherPrediction/WeatherPredition";
+import { useWeatherContext } from "./context/WeatherContext";
 
 export const App = () => {
   const theme = useTheme();
+  // const { currentWeather } = useWeatherContext();
 
   return (
     <Box
@@ -26,6 +28,7 @@ export const App = () => {
           <WeatherInfo />
         </Box>
       </Box>
+
       <Divider
         orientation="vertical"
         flexItem

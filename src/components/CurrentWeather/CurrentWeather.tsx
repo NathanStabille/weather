@@ -6,7 +6,7 @@ import landscape from "../../assets/landscapes.jpg";
 export const CurrentWeather = () => {
   const theme = useTheme();
 
-  const { weather } = useWeatherContext();
+  const { currentWeather } = useWeatherContext();
   const { units } = useUnitsContext();
 
   return (
@@ -22,7 +22,7 @@ export const CurrentWeather = () => {
       <Box display="flex" alignItems="center" justifyContent="space-between">
         <Box display="flex" alignItems="center">
           <img
-            src={`http://openweathermap.org/img/wn/${weather.icon}@2x.png`}
+            src={`http://openweathermap.org/img/wn/${currentWeather.icon}@2x.png`}
             alt=""
             style={{
               backgroundColor: theme.palette.primary.light,
@@ -48,19 +48,19 @@ export const CurrentWeather = () => {
               paddingX: 1,
             }}
           >
-            {`${Math.round(weather.feelsLike)}°${units.toUpperCase()}`}
+            {`${Math.round(currentWeather.feelsLike)}°${units.toUpperCase()}`}
           </Typography>
         </Box>
       </Box>
 
       {/* Temp */}
       <Typography marginTop={5} fontSize="3rem">{`${Math.round(
-        weather.temp
+        currentWeather.temp
       )}°${units.toUpperCase()} `}</Typography>
 
       {/* climate */}
       <Typography marginBottom={6} textTransform="capitalize">
-        {weather.climate}
+        {currentWeather.description}
       </Typography>
 
       <Box display="flex" width="100%" justifyContent="space-between">
@@ -73,7 +73,7 @@ export const CurrentWeather = () => {
           textAlign="center"
         >
           <Typography fontWeight="200">Pressure</Typography>
-          <Typography fontSize="1.5rem">{`${weather.pressure}mb`}</Typography>
+          <Typography fontSize="1.5rem">{`${currentWeather.pressure}mb`}</Typography>
         </Box>
 
         {/* visibility */}
@@ -86,8 +86,8 @@ export const CurrentWeather = () => {
           <Typography fontWeight="200">Visibility</Typography>
           <Typography fontSize="1.5rem">
             {units === "c"
-              ? `${(weather.visibility / 1000).toFixed(1)} km`
-              : `${(weather.visibility * 0.000621371192).toFixed(1)} mi`}
+              ? `${(currentWeather.visibility / 1000).toFixed(1)} km`
+              : `${(currentWeather.visibility * 0.000621371192).toFixed(1)} mi`}
           </Typography>
         </Box>
 
@@ -100,7 +100,7 @@ export const CurrentWeather = () => {
           textAlign="center"
         >
           <Typography fontWeight="200">Humadity</Typography>
-          <Typography fontSize="1.5rem">{`${weather.humidity}%`}</Typography>
+          <Typography fontSize="1.5rem">{`${currentWeather.humidity}%`}</Typography>
         </Box>
       </Box>
     </Box>

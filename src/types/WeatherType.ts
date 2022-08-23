@@ -1,13 +1,9 @@
-export type WeatherType= {
+export type CurrentWeatherType = {
   city?: string;
-  country: string;
   weather: string;
-  climate: string;
-  feelsLike: number;
+  description: string;
   icon: string;
   temp: number;
-  tempMax: number;
-  tempMin: number;
   humidity: number;
   pressure: number;
   visibility: number;
@@ -16,4 +12,10 @@ export type WeatherType= {
   clouds: number;
   sunset: number;
   sunrise: number;
+  latitude: number;
+  longitude: number;
+  timezone: number;
+  dateHour: number;
+  uvi: number;
+  feelsLike: number;
 };

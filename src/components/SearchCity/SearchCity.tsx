@@ -18,8 +18,9 @@ import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import { useAppThemeContext } from "../../context/ThemeContext";
 import { useUnitsContext } from "../../context/UnitsContext";
 import { useWeatherContext } from "../../context/WeatherContext";
-import { getWeather } from "../../api/weatherApi";
-import { geoApiOptions, GEO_API_URL } from "../../api/geoCitiesApi";
+import { getCurrentWeather } from "../../services/weatherApi";
+import { geoApiOptions, GEO_API_URL } from "../../services/geoCitiesApi";
+import { TimeAndLocation } from "../TimeAndLocation/TimeAndLocation";
 
 interface IAutoCompleteData {
   label: string;
@@ -33,7 +34,7 @@ export const SearchCity = () => {
 
   //contexts -----------------------------------------------------
   const { themeName, toggleTheme } = useAppThemeContext();
-  const { setWeather } = useWeatherContext();
+  const { setCurrentWeather } = useWeatherContext();
 
   //autocomplete states -----------------------------------------------------
   const [autoCompleteData, setAutoCompleteData] = useState(
@@ -109,8 +110,8 @@ export const SearchCity = () => {
 
   const getWeatherInput = async (lat: number, long: number, unit: string) => {
     if (autoCompleteItems.value !== "") {
-      const weatherRes = await getWeather(lat, long, unit);
-      setWeather({ city: autoCompleteItems.value, ...weatherRes });
+      const weatherRes = await getCurrentWeather(lat, long, unit);
+      setCurrentWeather({ city: autoCompleteItems.value, ...weatherRes });
       setInputText("");
       setAutoCompleteItems({
         label: "",
@@ -124,12 +125,12 @@ export const SearchCity = () => {
   // update units weather -----------------------------------------
   useEffect(() => {
     const updateUnit = async () => {
-      const weatherRes = await getWeather(
+      const weatherRes = await getCurrentWeather(
         autoCompleteItems.latitude,
         autoCompleteItems.longitude,
         whichUnit()
       );
-      setWeather({ city: autoCompleteItems.value, ...weatherRes });
+      setCurrentWeather({ city: autoCompleteItems.value, ...weatherRes });
     };
 
     updateUnit();
@@ -155,6 +156,7 @@ export const SearchCity = () => {
         </IconButton>
       </Box>
 
+      <TimeAndLocation />
       {/* input */}
 
       <Box display="flex">

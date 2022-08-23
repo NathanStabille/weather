@@ -7,7 +7,7 @@ import wind from "../../assets/wind.png";
 import forest from "../../assets/forest.jpg";
 
 export const WeatherInfo = () => {
-  const { weather } = useWeatherContext();
+  const { currentWeather } = useWeatherContext();
   const { units } = useUnitsContext();
   const theme = useTheme();
 
@@ -58,7 +58,7 @@ export const WeatherInfo = () => {
               maxWidth: "55px",
             }}
           />
-          <Box borderRadius={3} padding={1} paddingX={2}>
+          {/* <Box borderRadius={3} padding={1} paddingX={2}>
             <Typography fontSize="1.5rem">
               {` Max  ${Math.round(weather.tempMax)}°${units.toUpperCase()}`}
             </Typography>
@@ -66,7 +66,7 @@ export const WeatherInfo = () => {
             <Typography fontSize="1.5rem">
               {`Min  ${Math.round(weather.tempMin)}°${units.toUpperCase()}`}
             </Typography>
-          </Box>
+          </Box> */}
         </Box>
         {/* Clouds */}
         <Box display="flex" alignItems="center">
@@ -85,7 +85,7 @@ export const WeatherInfo = () => {
               color={theme.palette.text.secondary}
               borderRadius={3}
             >
-              {`${weather.clouds}%`}
+              {`${currentWeather.clouds}%`}
             </Typography>
           </Box>
         </Box>
@@ -116,12 +116,12 @@ export const WeatherInfo = () => {
             justifyContent="space-between"
           >
             <Typography fontSize="1.2rem">
-              {getDirection(weather.windDeg)}
+              {getDirection(currentWeather.windDeg)}
             </Typography>
             <Typography>
               {units === "c"
-                ? `${(weather.windSpeed * 3.6).toFixed(1)} km/h`
-                : `${weather.windSpeed} mph`}
+                ? `${(currentWeather.windSpeed * 3.6).toFixed(1)} km/h`
+                : `${currentWeather.windSpeed} mph`}
             </Typography>
           </Box>
         </Box>
