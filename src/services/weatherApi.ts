@@ -7,7 +7,43 @@ export const getForecast = async (
     ` https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=current,minutely,hourly,alerts&appid=1fa9ff4126d95b8db54f3897a208e91c&units=${units}`
   ).then((res) => res.json());
 
-  return response.daily
+  const daily = response.daily[0];
+  return {
+    dt: daily.dt,
+    sunrise: daily.sunrise,
+    sunset: daily.sunset,
+    moonrise: daily.moonrise,
+    moonset: daily.moonset,
+    moonPhase: daily.moon_phase,
+
+    tempDay: daily["temp"].day,
+    tempMin: daily["temp"].min,
+    tempMax: daily["temp"].max,
+    tempNight: daily["temp"].night,
+    tempEve: daily["temp"].eve,
+    tempMorn: daily["temp"].morn,
+
+    feelsDay: daily["feels_like"].day,
+    feelsNight: daily["feels_like"].night,
+    feelsEve: daily["feels_like"].eve,
+    feelsMorn: daily["feels_like"].morn,
+
+    pressure: daily.pressure,
+    humidity: daily.humidity,
+    dewPoint: daily.dew_point,
+    windSpeed: daily.wind_speed,
+    windDeg: daily.wind_deg,
+    windGust: daily.wind_gust,
+
+    weatherMain: daily.weather[0].main,
+    weatherDescription: daily.weather[0].description,
+    weatherIcon: daily.weather[0].icon,
+
+    clouds: daily.clouds,
+    pop: daily.pop,
+    rain: daily.rain,
+    uvi: daily.uvi,
+  };
 };
 
 export const getCurrentWeather = async (
@@ -23,9 +59,9 @@ export const getCurrentWeather = async (
     latitude: response.lat,
     longitude: response.lon,
     timezone: response.timezone,
-    weather: response['current'].weather[0].main,
-    description: response['current'].weather[0].description,
-    icon: response['current'].weather[0].icon,
+    weather: response["current"].weather[0].main,
+    description: response["current"].weather[0].description,
+    icon: response["current"].weather[0].icon,
     dateHour: response["current"].dt,
     feelsLike: response["current"].feels_like,
     temp: response["current"].temp,

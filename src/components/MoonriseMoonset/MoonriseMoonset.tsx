@@ -1,12 +1,11 @@
-import { Box, Divider, Typography, useTheme } from "@mui/material";
-import { useUnitsContext } from "../../context/UnitsContext";
+import { Box, Typography } from "@mui/material";
 import { useWeatherContext } from "../../context/WeatherContext";
-import sunrise from "../../assets/sunrise.png";
-import sunset from "../../assets/sunset.png";
+import moonrise from "../../assets/moonrise.png";
+import moonset from "../../assets/moonset.png";
 import "./style.css";
 
-export const SunsetSunrise = () => {
-  const { currentWeather } = useWeatherContext();
+export const MoonriseMoonset = () => {
+  const { currentWeather, dailyWeather } = useWeatherContext();
 
   const getHour = (unix: number) => {
     let date = new Date(unix * 1000);
@@ -29,27 +28,35 @@ export const SunsetSunrise = () => {
         alignItems="center"
         justifyContent="space-between"
         mt={8}
+        ml={5}
       >
-        <Box className="hot">
-          <span className="sun"></span>
-          <span className="sunx"></span>
+        <Box className="night">
+          <span className="moon"></span>
+          <span className="spot1"></span>
+          <span className="spot2"></span>
+
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
 
           <Box textAlign="center" mb={5}>
-            <img src={sunrise} alt="" style={{ width: "50px" }} />
+            <img src={moonrise} alt="" style={{ width: "50px" }} />
             <Typography fontWeight="300" fontSize="1.2rem">
-              Sunrise
+              Moonrise
             </Typography>
-            <Typography fontWeight="300" fontSize="1.2rem">{`0${getHour(
-              currentWeather.sunrise
-            )}`}</Typography>
+            <Typography fontWeight="300" fontSize="1.2rem">
+              {`0${getHour(dailyWeather.moonrise)}`}
+            </Typography>
           </Box>
           <Box textAlign="center">
-            <img src={sunset} alt="" style={{ width: "50px" }} />
+            <img src={moonset} alt="" style={{ width: "50px" }} />
             <Typography fontWeight="300" fontSize="1.2rem">
-              Sunset
+              Moonset
             </Typography>
             <Typography fontWeight="300" fontSize="1.2rem">
-              {getHour(currentWeather.sunset)}
+              {getHour(dailyWeather.moonset)}
             </Typography>
           </Box>
         </Box>
