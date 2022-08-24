@@ -2,6 +2,7 @@ import { Box, Typography, useTheme } from "@mui/material";
 import { useUnitsContext } from "../../context/UnitsContext";
 import { useWeatherContext } from "../../context/WeatherContext";
 import thermometer from "../../assets/thermometer.png";
+import { TemperatureChart } from "../TemperatureChart/TemperatureChart";
 
 export const Temperature = () => {
   const { dailyWeather } = useWeatherContext();
@@ -57,10 +58,14 @@ export const Temperature = () => {
         </Box>
       </Box>
 
+      <Box width="80%">
+        <TemperatureChart />
+      </Box>
+
       <Box
         width="100%"
         display="flex"
-        justifyContent="space-evenly"
+        justifyContent="space-around"
         alignItems="center"
         textAlign="center"
       >
