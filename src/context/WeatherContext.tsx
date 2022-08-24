@@ -6,7 +6,7 @@ import {
   useState,
 } from "react";
 import { Type } from "typescript";
-import { getCurrentWeather, getForecast } from "../services/weatherApi";
+import { getCurrentWeather, getDailyWeather } from "../services/weatherApi";
 import { CurrentWeatherType, DailyWeatherType } from "../types/WeatherTypes";
 
 interface IWeatherData {
@@ -31,9 +31,27 @@ export const useWeatherContext = () => {
 export const WeatherProvider: React.FC<IWeatherProviderProps> = ({
   children,
 }) => {
-  const [currentWeather, setCurrentWeather] = useState(
-    {} as CurrentWeatherType
-  );
+  const [currentWeather, setCurrentWeather] = useState<CurrentWeatherType>({
+    city: "Rio de Janeiro",
+    weather: "Clouds",
+    description: "broken clouds",
+    icon: "04n",
+    temp: 19.8,
+    feelsLike: 20.08,
+    humidity: 86,
+    pressure: 1023,
+    visibility: 10000,
+    windSpeed: 2.57,
+    windDeg: 140,
+    clouds: 75,
+    sunset: 1661373599,
+    sunrise: 1661332235,
+    latitude: -22.9068,
+    longitude: -43.1729,
+    timezone: "America/Sao_Paulo",
+    dateHour: 1661312128,
+    uvi: 0,
+  });
 
   const [dailyWeather, setDailyWeather] = useState<DailyWeatherType>({
     clouds: 4,

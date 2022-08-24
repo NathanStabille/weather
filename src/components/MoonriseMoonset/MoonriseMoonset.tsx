@@ -23,13 +23,7 @@ export const MoonriseMoonset = () => {
   return (
     <Box>
       {/* sunset/sunrise */}
-      <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="space-between"
-        mt={8}
-        ml={5}
-      >
+      <Box display="flex" alignItems="center" justifyContent="space-between">
         <Box className="night">
           <span className="moon"></span>
           <span className="spot1"></span>

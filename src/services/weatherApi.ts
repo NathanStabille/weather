@@ -1,4 +1,4 @@
-export const getForecast = async (
+export const getDailyWeather = async (
   lat: number,
   long: number,
   units = "metric"
@@ -74,5 +74,53 @@ export const getCurrentWeather = async (
     windDeg: response["current"].wind_deg,
     sunset: response["current"].sunset,
     sunrise: response["current"].sunrise,
+  };
+};
+
+export const getForecast = async (
+  lat: number,
+  long: number,
+  units = "metric"
+) => {
+  const response = await fetch(
+    ` https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=current,minutely,hourly,alerts&appid=1fa9ff4126d95b8db54f3897a208e91c&units=${units}`
+  ).then((res) => res.json());
+
+  const daily = response.daily;
+  return {
+    dt: daily.dt,
+    sunrise: daily.sunrise,
+    sunset: daily.sunset,
+    moonrise: daily.moonrise,
+    moonset: daily.moonset,
+    moonPhase: daily.moon_phase,
+
+    tempDay: daily["temp"].day,
+    tempMin: daily["temp"].min,
+    tempMax: daily["temp"].max,
+    tempNight: daily["temp"].night,
+    tempEve: daily["temp"].eve,
+    tempMorn: daily["temp"].morn,
+
+    feelsDay: daily["feels_like"].day,
+    feelsNight: daily["feels_like"].night,
+    feelsEve: daily["feels_like"].eve,
+    feelsMorn: daily["feels_like"].morn,
+
+    pressure: daily.pressure,
+    humidity: daily.humidity,
+    dewPoint: daily.dew_point,
+    windSpeed: daily.wind_speed,
+    windDeg: daily.wind_deg,
+    windGust: daily.wind_gust,
+
+    weatherMain: daily.weather[0].main,
+    weatherDescription: daily.weather[0].description,
+    weatherIcon: daily.weather[0].icon,
+
+    clouds: daily.clouds,
+    pop: daily.pop,
+    rain: daily.rain,
+    uvi: daily.uvi,
   };
 };

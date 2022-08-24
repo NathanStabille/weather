@@ -47,9 +47,10 @@ export const UVIBox = () => {
     <Box
       display="flex"
       alignItems="center"
-      bgcolor={theme.palette.primary.light}
+      bgcolor={theme.palette.secondary.dark}
       borderRadius={7}
       padding={2}
+      border={`2px solid ${uvi.color}`}
     >
       <img src={sun} alt="sun" style={{ width: "90px", margin: "0px 15px" }} />
       <Box display="flex" flexDirection="column" ml={3}>

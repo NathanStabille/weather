@@ -1,7 +1,6 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { useUnitsContext } from "../../context/UnitsContext";
 import { useWeatherContext } from "../../context/WeatherContext";
-import landscape from "../../assets/landscapes.jpg";
 
 export const CurrentWeather = () => {
   const theme = useTheme();
@@ -17,7 +16,7 @@ export const CurrentWeather = () => {
       display="flex"
       flexDirection="column"
       boxShadow="0 4px 30px rgba(0, 0, 0, 0.1)"
-      sx={{ backgroundImage: `url(${landscape})`, backgroundSize: "550px" }}
+      bgcolor={theme.palette.primary.light}
     >
       <Box display="flex" alignItems="center" justifyContent="space-between">
         <Box display="flex" alignItems="center">
@@ -25,9 +24,9 @@ export const CurrentWeather = () => {
             src={`http://openweathermap.org/img/wn/${currentWeather.icon}@2x.png`}
             alt=""
             style={{
-              backgroundColor: theme.palette.primary.light,
+              backgroundColor: theme.palette.background.paper,
               borderRadius: "50%",
-              maxWidth: "50px",
+              maxWidth: "60px",
             }}
           />
 

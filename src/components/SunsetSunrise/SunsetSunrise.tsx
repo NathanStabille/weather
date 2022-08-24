@@ -6,7 +6,7 @@ import sunset from "../../assets/sunset.png";
 import "./style.css";
 
 export const SunsetSunrise = () => {
-  const { currentWeather } = useWeatherContext();
+  const { currentWeather, dailyWeather } = useWeatherContext();
 
   const getHour = (unix: number) => {
     let date = new Date(unix * 1000);
@@ -24,12 +24,7 @@ export const SunsetSunrise = () => {
   return (
     <Box>
       {/* sunset/sunrise */}
-      <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="space-between"
-        mt={8}
-      >
+      <Box display="flex" alignItems="center" justifyContent="space-between">
         <Box className="hot">
           <span className="sun"></span>
           <span className="sunx"></span>
@@ -39,9 +34,9 @@ export const SunsetSunrise = () => {
             <Typography fontWeight="300" fontSize="1.2rem">
               Sunrise
             </Typography>
-            <Typography fontWeight="300" fontSize="1.2rem">{`0${getHour(
-              currentWeather.sunrise
-            )}`}</Typography>
+            <Typography fontWeight="300" fontSize="1.2rem">
+              {`0${getHour(dailyWeather.sunrise)}`}
+            </Typography>
           </Box>
           <Box textAlign="center">
             <img src={sunset} alt="" style={{ width: "50px" }} />
@@ -49,7 +44,7 @@ export const SunsetSunrise = () => {
               Sunset
             </Typography>
             <Typography fontWeight="300" fontSize="1.2rem">
-              {getHour(currentWeather.sunset)}
+              {getHour(dailyWeather.sunset)}
             </Typography>
           </Box>
         </Box>

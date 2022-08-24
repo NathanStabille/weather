@@ -1,5 +1,5 @@
 import { Box, Divider, Typography, useTheme } from "@mui/material";
-import { WeatherInfo } from "./components/WeatherInfo/WeatherInfo";
+import { Temperature } from "./components/Temperature/Temperature";
 import { SearchCity } from "./components/SearchCity/SearchCity";
 import { SunsetSunrise } from "./components/SunsetSunrise/SunsetSunrise";
 import { CurrentWeather } from "./components/CurrentWeather/CurrentWeather";
@@ -8,6 +8,7 @@ import { useWeatherContext } from "./context/WeatherContext";
 import { useUnitsContext } from "./context/UnitsContext";
 import { MoonriseMoonset } from "./components/MoonriseMoonset/MoonriseMoonset";
 import { UVIBox } from "./components/UVIBox/UVIBox";
+import { WindInfo } from "./components/WindInfo/WindInfo";
 
 export const App = () => {
   const theme = useTheme();
@@ -29,12 +30,18 @@ export const App = () => {
 
         <Box display="flex">
           <CurrentWeather />
-          <WeatherInfo />
+          <Temperature />
         </Box>
 
-        <Box display="flex">
+        <Box
+          display="flex"
+          alignItems="center"
+          mt={8}
+          justifyContent="space-evenly"
+        >
           <SunsetSunrise />
           <MoonriseMoonset />
+          <WindInfo />
         </Box>
       </Box>
 

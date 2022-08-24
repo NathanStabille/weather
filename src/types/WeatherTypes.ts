@@ -14,7 +14,7 @@ export type CurrentWeatherType = {
   sunrise: number;
   latitude: number;
   longitude: number;
-  timezone: number;
+  timezone: string;
   dateHour: number;
   uvi: number;
   feelsLike: number;
