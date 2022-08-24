@@ -5,8 +5,11 @@ import {
   useEffect,
   useState,
 } from "react";
-import { Type } from "typescript";
-import { getCurrentWeather, getDailyWeather } from "../services/weatherApi";
+import {
+  getCurrentWeather,
+  getDailyWeather,
+  getForecast,
+} from "../services/weatherApi";
 import { CurrentWeatherType, DailyWeatherType } from "../types/WeatherTypes";
 
 interface IWeatherData {
@@ -14,7 +17,7 @@ interface IWeatherData {
   setCurrentWeather: (currentWeather: CurrentWeatherType) => void;
   dailyWeather: DailyWeatherType;
   setDailyWeather: (dailyWeather: DailyWeatherType) => void;
-  forecast: Type[];
+  forecastFormatted: DailyWeatherType[];
   setForecast: (forecast: []) => void;
 }
 
@@ -31,79 +34,55 @@ export const useWeatherContext = () => {
 export const WeatherProvider: React.FC<IWeatherProviderProps> = ({
   children,
 }) => {
-  const [currentWeather, setCurrentWeather] = useState<CurrentWeatherType>({
-    city: "Rio de Janeiro",
-    weather: "Clouds",
-    description: "broken clouds",
-    icon: "04n",
-    temp: 19.8,
-    feelsLike: 20.08,
-    humidity: 86,
-    pressure: 1023,
-    visibility: 10000,
-    windSpeed: 2.57,
-    windDeg: 140,
-    clouds: 75,
-    sunset: 1661373599,
-    sunrise: 1661332235,
-    latitude: -22.9068,
-    longitude: -43.1729,
-    timezone: "America/Sao_Paulo",
-    dateHour: 1661312128,
-    uvi: 0,
+  const [currentWeather, setCurrentWeather] = useState(
+    {} as CurrentWeatherType
+  );
+
+  const [dailyWeather, setDailyWeather] = useState({} as DailyWeatherType);
+  const [forecast, setForecast] = useState([] as any);
+
+  const forecastFormatted = [] as DailyWeatherType[];
+
+  forecast.map((item: any) => {
+    forecastFormatted.push({
+      dt: item.dt,
+      sunrise: item.sunrise,
+      sunset: item.sunset,
+      moonrise: item.moonrise,
+      moonset: item.moonset,
+      moonPhase: item.moon_phase,
+
+      tempDay: item["temp"].day,
+      tempMin: item["temp"].min,
+      tempMax: item["temp"].max,
+      tempNight: item["temp"].night,
+      tempEve: item["temp"].eve,
+      tempMorn: item["temp"].morn,
+
+      feelsDay: item["feels_like"].day,
+      feelsNight: item["feels_like"].night,
+      feelsEve: item["feels_like"].eve,
+      feelsMorn: item["feels_like"].morn,
+
+      pressure: item.pressure,
+      humidity: item.humidity,
+      dewPoint: item.dew_point,
+      windSpeed: item.wind_speed,
+      windDeg: item.wind_deg,
+      windGust: item.wind_gust,
+
+      weatherMain: item.weather[0].main,
+      weatherDescription: item.weather[0].description,
+      weatherIcon: item.weather[0].icon,
+
+      clouds: item.clouds,
+      pop: item.pop,
+      rain: item.rain,
+      uvi: item.uvi,
+    });
   });
 
-  const [dailyWeather, setDailyWeather] = useState<DailyWeatherType>({
-    clouds: 4,
-    dewPoint: 14.01,
-    dt: 1661263200,
-    feelsDay: 22.08,
-    feelsEve: 21.15,
-    feelsMorn: 16.15,
-    feelsNight: 20.2,
-    humidity: 60,
-    moonPhase: 0.88,
-    moonrise: 1661236980,
-    moonset: 1661275560,
-    pop: 0.35,
-    pressure: 1025,
-    rain: 0.11,
-    sunrise: 1661245886,
-    sunset: 1661287179,
-    tempDay: 22.23,
-    tempEve: 21.01,
-    tempMax: 22.79,
-    tempMin: 16.23,
-    tempMorn: 16.3,
-    tempNight: 19.93,
-    uvi: 8.83,
-    weatherDescription: "light rain",
-    weatherIcon: "10d",
-    weatherMain: "Rain",
-    windDeg: 117,
-    windGust: 8.52,
-    windSpeed: 5.13,
-  });
-  const [forecast, setForecast] = useState([]);
-
-  // useEffect(() => {
-  //   const get = async () => {
-  //     setDailyWeather(await getForecast(-22.9068, -43.1729));
-  //   };
-
-  //   get();
-  // }, []);
-
-  console.log(dailyWeather);
-  // useEffect(() => {
-  //   const get = async () => {
-  //     const daily = await getForecast(-22.9068, -43.1729)
-  //     setForecast(daily.slice(1))
-  //   };
-
-  //   get();
-  // }, []);
-
+  console.log(forecastFormatted);
   return (
     <WeatherContext.Provider
       value={{
@@ -111,7 +90,7 @@ export const WeatherProvider: React.FC<IWeatherProviderProps> = ({
         setCurrentWeather,
         dailyWeather,
         setDailyWeather,
-        forecast,
+        forecastFormatted,
         setForecast,
       }}
     >
@@ -119,3 +98,19 @@ export const WeatherProvider: React.FC<IWeatherProviderProps> = ({
     </WeatherContext.Provider>
   );
 };
+
+// useEffect(() => {
+//   const get = async () => {
+//     setDailyWeather(await getForecast(-22.9068, -43.1729));
+//   };
+
+//   get();
+// }, []);
+
+// useEffect(() => {
+//   const get = async () => {
+//     setForecast(await getForecast(-22.9068, -43.1729));
+//   };
+
+//   // get();
+// }, []);
