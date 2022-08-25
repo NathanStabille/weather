@@ -41,4 +41,5 @@ Site: https://appreact-weather.netlify.app/
 Nathan Stabille
 
 https://www.linkedin.com/in/nathan-stabille
+
 https://nathanstabille.vercel.app/
