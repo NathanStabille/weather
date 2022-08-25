@@ -4,7 +4,7 @@ import { PredictionBox } from "../PredictionBox/PredictionBox";
 import { DailyWeatherType } from "../../types/WeatherTypes";
 
 export const WeatherPrediction = () => {
-  const { forecastFormatted } = useWeatherContext();
+  const { forecastFormatted, currentWeather } = useWeatherContext();
 
   return (
     <Box
@@ -14,7 +14,6 @@ export const WeatherPrediction = () => {
       flexDirection="column"
       alignItems="center"
       justifyContent="center"
-      overflow={"auto"}
     >
       <Typography fontSize="2.5rem" marginY={2} textAlign="center">
         Weather Preditction
@@ -32,7 +31,7 @@ export const WeatherPrediction = () => {
             tempMin={item.tempMin}
             date={item.dt}
             clouds={item.clouds}
-            timezone={item.timezone}
+            timezone={currentWeather.timezone}
             rain={item.rain}
             sunset={item.sunset}
             sunrise={item.sunrise}

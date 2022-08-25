@@ -103,41 +103,42 @@ export const SearchCity = () => {
     }
   };
 
+  console.log(currentWeather.latitude, currentWeather.longitude)
   // update units weather -----------------------------------------
-  useEffect(() => {
-    const updateUnit = async () => {
-      const weatherRes = await getCurrentWeather(
-        autoCompleteItems.latitude,
-        autoCompleteItems.longitude,
-        units
-      );
-      setCurrentWeather({ city: autoCompleteItems.value, ...weatherRes });
-    };
+  // useEffect(() => {
+  //   const updateUnit = async () => {
+  //     const weatherRes = await getCurrentWeather(
+  //       autoCompleteItems.latitude,
+  //       autoCompleteItems.longitude,
+  //       units
+  //     );
+  //     setCurrentWeather({ city: autoCompleteItems.value, ...weatherRes });
+  //   };
 
-    updateUnit();
-  }, [units]);
+  //   updateUnit();
+  // }, [units]);
 
-  useEffect(() => {
-    const update = async () => {
-      setDailyWeather(
-        await getDailyWeather(
-          currentWeather.latitude,
-          currentWeather.longitude,
-          units
-        )
-      );
+  // useEffect(() => {
+  //   const update = async () => {
+  //     setDailyWeather(
+  //       await getDailyWeather(
+  //         currentWeather.latitude,
+  //         currentWeather.longitude,
+  //         units
+  //       )
+  //     );
 
-      setForecast(
-        await getForecastWeather(
-          currentWeather.latitude,
-          currentWeather.longitude,
-          units === "metric" ? "metric" : "imperial"
-        )
-      );
-    };
+  //     setForecast(
+  //       await getForecastWeather(
+  //         currentWeather.latitude,
+  //         currentWeather.longitude,
+  //         units === "metric" ? "metric" : "imperial"
+  //       )
+  //     );
+  //   };
 
-    update();
-  }, [currentWeather]);
+  //   update();
+  // }, [currentWeather]);
 
   return (
     <Box

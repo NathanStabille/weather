@@ -64,7 +64,6 @@ export const getCurrentWeather = async (
     weather: response["current"].weather[0].main,
     description: response["current"].weather[0].description,
     icon: response["current"].weather[0].icon,
-    dateHour: response["current"].dt,
     feelsLike: response["current"].feels_like,
     temp: response["current"].temp,
     humidity: response["current"].humidity,

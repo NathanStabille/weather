@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useUnitsContext } from "../../context/UnitsContext";
 import { useWeatherContext } from "../../context/WeatherContext";
 import thermometer from "../../assets/thermometer.png";
@@ -9,13 +9,16 @@ export const Temperature = () => {
   const { units } = useUnitsContext();
   const theme = useTheme();
 
+  const lgDown = useMediaQuery(theme.breakpoints.down("lg"));
+
   return (
     <Box
       width="550px"
       borderRadius="30px"
       padding={3}
       boxShadow="0 4px 30px rgba(0, 0, 0, 0.1)"
-      ml={10}
+      ml={lgDown ? 0 : 10}
+      mt={lgDown ? 5 : 0}
       display="flex"
       flexDirection="column"
       justifyContent="space-between"
@@ -50,10 +53,14 @@ export const Temperature = () => {
           borderRadius={5}
         >
           <Typography fontSize="1.5rem">
-            {` Max  ${Math.round(dailyWeather.tempMax)}°${units === 'metric' ? 'C' : 'F'}`}
+            {` Max  ${Math.round(dailyWeather.tempMax)}°${
+              units === "metric" ? "C" : "F"
+            }`}
           </Typography>
           <Typography fontSize="1.5rem">
-            {` Min ${Math.round(dailyWeather.tempMin)}°${units === 'metric' ? 'C' : 'F'}`}
+            {` Min ${Math.round(dailyWeather.tempMin)}°${
+              units === "metric" ? "C" : "F"
+            }`}
           </Typography>
         </Box>
       </Box>
@@ -71,7 +78,9 @@ export const Temperature = () => {
       >
         <Box>
           <Typography fontWeight="300" fontSize="1.1rem">
-            {`${Math.round(dailyWeather.tempMorn)}°${units === 'metric' ? 'C' : 'F'}`}
+            {`${Math.round(dailyWeather.tempMorn)}°${
+              units === "metric" ? "C" : "F"
+            }`}
           </Typography>
           <Typography fontWeight="300" fontSize="1.1rem">
             Morning
@@ -79,7 +88,9 @@ export const Temperature = () => {
         </Box>
         <Box>
           <Typography fontWeight="300" fontSize="1.1rem">
-            {`${Math.round(dailyWeather.tempDay)}°${units === 'metric' ? 'C' : 'F'}`}
+            {`${Math.round(dailyWeather.tempDay)}°${
+              units === "metric" ? "C" : "F"
+            }`}
           </Typography>
           <Typography fontWeight="300" fontSize="1.1rem">
             Day
@@ -87,7 +98,9 @@ export const Temperature = () => {
         </Box>
         <Box>
           <Typography fontWeight="300" fontSize="1.1rem">
-            {`${Math.round(dailyWeather.tempEve)}°${units === 'metric' ? 'C' : 'F'}`}
+            {`${Math.round(dailyWeather.tempEve)}°${
+              units === "metric" ? "C" : "F"
+            }`}
           </Typography>
           <Typography fontWeight="300" fontSize="1.1rem">
             Evening
@@ -95,7 +108,9 @@ export const Temperature = () => {
         </Box>
         <Box>
           <Typography fontWeight="300" fontSize="1.1rem">
-            {`${Math.round(dailyWeather.tempNight)}°${units === 'metric' ? 'C' : 'F'}`}
+            {`${Math.round(dailyWeather.tempNight)}°${
+              units === "metric" ? "C" : "F"
+            }`}
           </Typography>
           <Typography fontWeight="300" fontSize="1.1rem">
             Night

@@ -1,4 +1,10 @@
-import { Box, Divider, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Divider,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { Temperature } from "./components/Temperature/Temperature";
 import { SearchCity } from "./components/SearchCity/SearchCity";
 import { SunsetSunrise } from "./components/SunsetSunrise/SunsetSunrise";
@@ -6,7 +12,7 @@ import { CurrentWeather } from "./components/CurrentWeather/CurrentWeather";
 import { WeatherPrediction } from "./components/WeatherPrediction/WeatherPredition";
 import { useWeatherContext } from "./context/WeatherContext";
 import { useUnitsContext } from "./context/UnitsContext";
-import { MoonriseMoonset } from "./components/MoonriseMoonset/MoonriseMoonset";
+import { MoonsetMoonrise } from "./components/MoonsetMoonrise/MoonsetMoonrise";
 import { UVIBox } from "./components/UVIBox/UVIBox";
 import { WindInfo } from "./components/WindInfo/WindInfo";
 import { Moonphase } from "./components/Moonphase/Moonphase";
@@ -16,6 +22,8 @@ export const App = () => {
   const { currentWeather } = useWeatherContext();
   const { units } = useUnitsContext();
 
+  const lgDown = useMediaQuery(theme.breakpoints.down("lg"));
+
   return (
     <Box
       width="100vw"
@@ -24,12 +32,17 @@ export const App = () => {
       paddingY="1%"
       bgcolor={theme.palette.background.paper}
       display="flex"
-      sx={{ userSelect: "none", overflow: "hidden" }}
+      flexDirection={lgDown ? "column" : "row"}
+      sx={{ userSelect: "none" }}
     >
       <Box display="flex" flexDirection="column">
         <SearchCity />
 
-        <Box display="flex">
+        <Box
+          display="flex"
+          flexDirection={lgDown ? "column" : "row"}
+          alignItems={lgDown ? "center" : ""}
+        >
           <CurrentWeather />
           <Temperature />
         </Box>
@@ -39,11 +52,20 @@ export const App = () => {
           alignItems="center"
           mt={8}
           justifyContent="space-evenly"
+          flexDirection={lgDown ? "column" : "row"}
         >
-          <SunsetSunrise />
-          <MoonriseMoonset />
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            mb={lgDown ? 5 : 0}
+          >
+            <SunsetSunrise />
+            <MoonsetMoonrise />
+          </Box>
+
           <WindInfo />
-          <Box height="100%">
+          <Box height="100%" display="flex" flexDirection='column' justifyContent="space-between">
             <UVIBox />
             <Moonphase />
           </Box>

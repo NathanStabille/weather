@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useUnitsContext } from "../../context/UnitsContext";
 import { useWeatherContext } from "../../context/WeatherContext";
 import wind from "../../assets/wind.png";
@@ -10,6 +10,7 @@ export const WindInfo = () => {
   const theme = useTheme();
   const { units } = useUnitsContext();
   const { currentWeather, dailyWeather } = useWeatherContext();
+  const lgDown = useMediaQuery(theme.breakpoints.down("lg"));
 
   const getDirection = (angle: number) => {
     let directions = [
@@ -27,7 +28,7 @@ export const WindInfo = () => {
   };
 
   return (
-    <Box height="100%">
+    <Box height="100%" mb={lgDown ? 5 : 0}>
       <Box
         className="cloudy"
         display="flex"
@@ -38,7 +39,7 @@ export const WindInfo = () => {
         <span className="cloud"></span>
         <span className="cloud"></span>
 
-        <Box display="flex" alignItems="center" justifyContent="center">
+        <Box display="flex" alignItems="center" justifyContent="center" mb={3}>
           <img
             src={clouds}
             alt="cloud"
@@ -62,7 +63,7 @@ export const WindInfo = () => {
           </Box>
         </Box>
 
-        <Box display="flex">
+        <Box display="flex" mb={3}>
           <img
             src={rain}
             alt="rain"

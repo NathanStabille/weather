@@ -1,5 +1,11 @@
 import "./style.css";
-import { Box, CircularProgress, Typography } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import fullMoon from "../../assets/moonphase/full-moon.png";
 import firstQuarter from "../../assets/moonphase/first-quarter.png";
 import lastQuarter from "../../assets/moonphase/last-quarter.png";
@@ -10,9 +16,10 @@ import waxingCrescent from "../../assets/moonphase/waning-gibbous.png";
 import waxingGibbous from "../../assets/moonphase/waxing-gibbous.png";
 import { useWeatherContext } from "../../context/WeatherContext";
 
-
 export const Moonphase = () => {
   const { dailyWeather } = useWeatherContext();
+  const theme = useTheme();
+  const lgDown = useMediaQuery(theme.breakpoints.down("lg"));
 
   const moon = dailyWeather.moonPhase;
 
@@ -37,7 +44,7 @@ export const Moonphase = () => {
   };
 
   return (
-    <Box className="stormy" mt={2}>
+    <Box className="stormy" mt={lgDown ? 5 : 2} mb={lgDown ? 5 : 0}>
       {moon ? <img src={setMoon()?.phase} alt="moon" /> : <CircularProgress />}
 
       <Box ml={3}>
