@@ -2,23 +2,24 @@ import {
   NightsStay,
   LightMode,
   Search as SearchIcon,
-  ArrowDropDown,
 } from "@mui/icons-material";
 import {
   Autocomplete,
   Box,
   Button,
   IconButton,
-  Menu,
-  MenuItem,
   TextField,
   useTheme,
 } from "@mui/material";
-import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useAppThemeContext } from "../../context/ThemeContext";
 import { useUnitsContext } from "../../context/UnitsContext";
 import { useWeatherContext } from "../../context/WeatherContext";
-import { getCurrentWeather } from "../../services/weatherApi";
+import {
+  getCurrentWeather,
+  getDailyWeather,
+  getForecastWeather,
+} from "../../services/weatherApi";
 import { geoApiOptions, GEO_API_URL } from "../../services/geoCitiesApi";
 import { TimeAndLocation } from "../TimeAndLocation/TimeAndLocation";
 
@@ -34,7 +35,8 @@ export const SearchCity = () => {
 
   //contexts -----------------------------------------------------
   const { themeName, toggleTheme } = useAppThemeContext();
-  const { setCurrentWeather } = useWeatherContext();
+  const { currentWeather, setCurrentWeather, setDailyWeather, setForecast } =
+    useWeatherContext();
 
   //autocomplete states -----------------------------------------------------
   const [autoCompleteData, setAutoCompleteData] = useState(
@@ -50,10 +52,8 @@ export const SearchCity = () => {
     }
   );
 
-  // button states -----------------------------------------------------
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  // button c|f  state -----------------------------------------------------
   const { units, setUnits } = useUnitsContext();
-  const open = Boolean(anchorEl);
 
   // function get cities for autocomplete ----------------------
   const loadOptions = (inputValue: string) => {
@@ -83,27 +83,8 @@ export const SearchCity = () => {
     loadOptions(value);
   };
 
-  // identify units from value button -----------------------------------------------------
-  const whichUnit = () => {
-    if (units === "f") {
-      return "imperial";
-    }
-
-    return "metric";
-  };
-
-  // function set state for button degrees ----------------------------------------------
-  const selectUnits = (unit: "c" | "f") => {
-    setUnits(unit);
-    setAnchorEl(null);
-  };
-
-  // function menu open/close button degrees -----------------------------------------
-  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
+  const toggleUnit = () => {
+    units === "metric" ? setUnits("imperial") : setUnits("metric");
   };
 
   //function get data weather from api ------------------------------
@@ -128,13 +109,35 @@ export const SearchCity = () => {
       const weatherRes = await getCurrentWeather(
         autoCompleteItems.latitude,
         autoCompleteItems.longitude,
-        whichUnit()
+        units
       );
       setCurrentWeather({ city: autoCompleteItems.value, ...weatherRes });
     };
 
     updateUnit();
   }, [units]);
+
+  useEffect(() => {
+    const update = async () => {
+      setDailyWeather(
+        await getDailyWeather(
+          currentWeather.latitude,
+          currentWeather.longitude,
+          units
+        )
+      );
+
+      setForecast(
+        await getForecastWeather(
+          currentWeather.latitude,
+          currentWeather.longitude,
+          units === "metric" ? "metric" : "imperial"
+        )
+      );
+    };
+
+    update();
+  }, [currentWeather]);
 
   return (
     <Box
@@ -188,7 +191,7 @@ export const SearchCity = () => {
                   getWeatherInput(
                     autoCompleteItems.latitude,
                     autoCompleteItems.longitude,
-                    whichUnit()
+                    units
                   )
                 }
                 sx={{
@@ -207,7 +210,7 @@ export const SearchCity = () => {
               getWeatherInput(
                 autoCompleteItems.latitude,
                 autoCompleteItems.longitude,
-                whichUnit()
+                units
               )
             }
           >
@@ -216,27 +219,10 @@ export const SearchCity = () => {
         </Box>
 
         {/* unit button */}
-        <Button
-          aria-controls={open ? "basic-menu" : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}
-          onClick={handleClick}
-          sx={{
-            color: theme.palette.text.primary,
-            fontSize: "1.5rem",
-            marginLeft: 2,
-            ":hover": {
-              backgroundColor: theme.palette.background.default,
-            },
-          }}
-        >
-          {`${units.toUpperCase()}°`}
-          <ArrowDropDown />
+
+        <Button onClick={toggleUnit} sx={{ fontSize: "1.5rem", marginX: 1 }}>
+          {units === "metric" ? "C°" : "F°"}
         </Button>
-        <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-          <MenuItem onClick={() => selectUnits("c")}>C°</MenuItem>
-          <MenuItem onClick={() => selectUnits("f")}>F°</MenuItem>
-        </Menu>
       </Box>
     </Box>
   );

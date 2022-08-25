@@ -1,15 +1,5 @@
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
-import {
-  getCurrentWeather,
-  getDailyWeather,
-  getForecast,
-} from "../services/weatherApi";
+import { createContext, ReactNode, useContext, useState } from "react";
+import {} from "../services/weatherApi";
 import { CurrentWeatherType, DailyWeatherType } from "../types/WeatherTypes";
 
 interface IWeatherData {
@@ -37,20 +27,20 @@ export const WeatherProvider: React.FC<IWeatherProviderProps> = ({
   const [currentWeather, setCurrentWeather] = useState(
     {} as CurrentWeatherType
   );
-
   const [dailyWeather, setDailyWeather] = useState({} as DailyWeatherType);
   const [forecast, setForecast] = useState([] as any);
 
   const forecastFormatted = [] as DailyWeatherType[];
 
   forecast.map((item: any) => {
-    forecastFormatted.push({
+    return forecastFormatted.push({
       dt: item.dt,
       sunrise: item.sunrise,
       sunset: item.sunset,
       moonrise: item.moonrise,
       moonset: item.moonset,
       moonPhase: item.moon_phase,
+      timezone: item.timezone,
 
       tempDay: item["temp"].day,
       tempMin: item["temp"].min,
@@ -82,7 +72,6 @@ export const WeatherProvider: React.FC<IWeatherProviderProps> = ({
     });
   });
 
-  console.log(forecastFormatted);
   return (
     <WeatherContext.Provider
       value={{
@@ -98,19 +87,3 @@ export const WeatherProvider: React.FC<IWeatherProviderProps> = ({
     </WeatherContext.Provider>
   );
 };
-
-// useEffect(() => {
-//   const get = async () => {
-//     setDailyWeather(await getForecast(-22.9068, -43.1729));
-//   };
-
-//   get();
-// }, []);
-
-// useEffect(() => {
-//   const get = async () => {
-//     setForecast(await getForecast(-22.9068, -43.1729));
-//   };
-
-//   // get();
-// }, []);

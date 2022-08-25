@@ -10,6 +10,7 @@ export const getDailyWeather = async (
   const daily = response.daily[0];
   return {
     dt: daily.dt,
+    timezone: daily.timezone,
     sunrise: daily.sunrise,
     sunset: daily.sunset,
     moonrise: daily.moonrise,
@@ -59,6 +60,7 @@ export const getCurrentWeather = async (
     latitude: response.lat,
     longitude: response.lon,
     timezone: response.timezone,
+    dt: response["current"].dt,
     weather: response["current"].weather[0].main,
     description: response["current"].weather[0].description,
     icon: response["current"].weather[0].icon,
@@ -77,7 +79,7 @@ export const getCurrentWeather = async (
   };
 };
 
-export const getForecast = async (
+export const getForecastWeather = async (
   lat: number,
   long: number,
   units = "metric"
@@ -90,40 +92,3 @@ export const getForecast = async (
 
   return daily;
 };
-
-// {
-//   dt: daily.dt,
-//   sunrise: daily.sunrise,
-//   sunset: daily.sunset,
-//   moonrise: daily.moonrise,
-//   moonset: daily.moonset,
-//   moonPhase: daily.moon_phase,
-
-//   tempDay: daily["temp"].day,
-//   tempMin: daily["temp"].min,
-//   tempMax: daily["temp"].max,
-//   tempNight: daily["temp"].night,
-//   tempEve: daily["temp"].eve,
-//   tempMorn: daily["temp"].morn,
-
-//   feelsDay: daily["feels_like"].day,
-//   feelsNight: daily["feels_like"].night,
-//   feelsEve: daily["feels_like"].eve,
-//   feelsMorn: daily["feels_like"].morn,
-
-//   pressure: daily.pressure,
-//   humidity: daily.humidity,
-//   dewPoint: daily.dew_point,
-//   windSpeed: daily.wind_speed,
-//   windDeg: daily.wind_deg,
-//   windGust: daily.wind_gust,
-
-//   weatherMain: daily.weather[0].main,
-//   weatherDescription: daily.weather[0].description,
-//   weatherIcon: daily.weather[0].icon,
-
-//   clouds: daily.clouds,
-//   pop: daily.pop,
-//   rain: daily.rain,
-//   uvi: daily.uvi,
-// };

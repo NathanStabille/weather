@@ -50,10 +50,10 @@ export const Temperature = () => {
           borderRadius={5}
         >
           <Typography fontSize="1.5rem">
-            {` Max  ${Math.round(dailyWeather.tempMax)}°${units.toUpperCase()}`}
+            {` Max  ${Math.round(dailyWeather.tempMax)}°${units === 'metric' ? 'C' : 'F'}`}
           </Typography>
           <Typography fontSize="1.5rem">
-            {` Max  ${Math.round(dailyWeather.tempMax)}°${units.toUpperCase()}`}
+            {` Min ${Math.round(dailyWeather.tempMin)}°${units === 'metric' ? 'C' : 'F'}`}
           </Typography>
         </Box>
       </Box>
@@ -71,7 +71,7 @@ export const Temperature = () => {
       >
         <Box>
           <Typography fontWeight="300" fontSize="1.1rem">
-            {`${Math.round(dailyWeather.tempMorn)}°${units.toUpperCase()}`}
+            {`${Math.round(dailyWeather.tempMorn)}°${units === 'metric' ? 'C' : 'F'}`}
           </Typography>
           <Typography fontWeight="300" fontSize="1.1rem">
             Morning
@@ -79,7 +79,7 @@ export const Temperature = () => {
         </Box>
         <Box>
           <Typography fontWeight="300" fontSize="1.1rem">
-            {`${Math.round(dailyWeather.tempDay)}°${units.toUpperCase()}`}
+            {`${Math.round(dailyWeather.tempDay)}°${units === 'metric' ? 'C' : 'F'}`}
           </Typography>
           <Typography fontWeight="300" fontSize="1.1rem">
             Day
@@ -87,7 +87,7 @@ export const Temperature = () => {
         </Box>
         <Box>
           <Typography fontWeight="300" fontSize="1.1rem">
-            {`${Math.round(dailyWeather.tempEve)}°${units.toUpperCase()}`}
+            {`${Math.round(dailyWeather.tempEve)}°${units === 'metric' ? 'C' : 'F'}`}
           </Typography>
           <Typography fontWeight="300" fontSize="1.1rem">
             Evening
@@ -95,7 +95,7 @@ export const Temperature = () => {
         </Box>
         <Box>
           <Typography fontWeight="300" fontSize="1.1rem">
-            {`${Math.round(dailyWeather.tempNight)}°${units.toUpperCase()}`}
+            {`${Math.round(dailyWeather.tempNight)}°${units === 'metric' ? 'C' : 'F'}`}
           </Typography>
           <Typography fontWeight="300" fontSize="1.1rem">
             Night

@@ -9,6 +9,7 @@ import { useUnitsContext } from "./context/UnitsContext";
 import { MoonriseMoonset } from "./components/MoonriseMoonset/MoonriseMoonset";
 import { UVIBox } from "./components/UVIBox/UVIBox";
 import { WindInfo } from "./components/WindInfo/WindInfo";
+import { Moonphase } from "./components/Moonphase/Moonphase";
 
 export const App = () => {
   const theme = useTheme();
@@ -23,7 +24,7 @@ export const App = () => {
       paddingY="1%"
       bgcolor={theme.palette.background.paper}
       display="flex"
-      sx={{ userSelect: "none" }}
+      sx={{ userSelect: "none", overflow: "hidden" }}
     >
       <Box display="flex" flexDirection="column">
         <SearchCity />
@@ -42,6 +43,10 @@ export const App = () => {
           <SunsetSunrise />
           <MoonriseMoonset />
           <WindInfo />
+          <Box height="100%">
+            <UVIBox />
+            <Moonphase />
+          </Box>
         </Box>
       </Box>
 
@@ -62,7 +67,9 @@ export const App = () => {
             <Typography fontSize="1.3rem">{`${currentWeather.city}`}</Typography>
           </Box>
           <Typography fontSize="3rem" color={theme.palette.primary.dark}>
-            {`${Math.round(currentWeather.temp)}°${units.toUpperCase()}`}
+            {`${Math.round(currentWeather.temp)}°${
+              units === "metric" ? "C" : "F"
+            }`}
           </Typography>
         </Box>
         <Divider
@@ -73,7 +80,6 @@ export const App = () => {
           }}
         />
 
-        <UVIBox />
         <WeatherPrediction />
       </Box>
     </Box>

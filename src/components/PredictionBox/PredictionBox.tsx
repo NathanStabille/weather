@@ -7,14 +7,22 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import { DateTime } from "luxon";
 
 interface IPredictionBoxProps {
   iconName: string;
-  forecastWeather: string;
+  forecastWeather?: string;
   tempMax: number;
   tempMin: number;
   pressure: number;
   humidity: number;
+  date: number;
+  weatherDescription: string;
+  clouds: number;
+  timezone: string;
+  rain: number;
+  sunset: number;
+  sunrise: number;
 }
 
 export const PredictionBox = ({
@@ -24,11 +32,23 @@ export const PredictionBox = ({
   tempMin,
   pressure,
   humidity,
+  date,
+  weatherDescription,
+  clouds,
+  timezone,
+  rain,
+  sunset,
+  sunrise,
 }: IPredictionBoxProps) => {
   const theme = useTheme();
 
+  const getDate = (dt: number) => DateTime.fromSeconds(dt).toFormat("cccc, dd");
+
+  const getHour = (unix: number, zone: string, format = "t") =>
+    DateTime.fromSeconds(unix).setZone(zone).toFormat(format);
+
   return (
-    <Box width="100%">
+    <Box width="100%" mb={2}>
       <Accordion
         square
         sx={{
@@ -63,9 +83,13 @@ export const PredictionBox = ({
                 justifyContent="center"
               >
                 <Typography fontSize="1.1rem" fontWeight="300">
-                  November 10
+                  {getDate(date)}
                 </Typography>
+
                 <Typography fontSize="1.5rem">{forecastWeather}</Typography>
+                <Typography fontSize="1rem" fontWeight="300">
+                  {weatherDescription}
+                </Typography>
               </Box>
             </Box>
             <Typography fontSize="2rem" color={theme.palette.primary.dark}>
@@ -79,17 +103,48 @@ export const PredictionBox = ({
             display: "flex",
             justifyContent: "space-evenly",
             alignItems: "center",
-            textAlign: "center",
           }}
         >
           <Box>
-            <Typography fontWeight="200">Pressure</Typography>
-            <Typography fontSize="1.5rem">{`${pressure}mb`}</Typography>
+            <Box>
+              <Typography fontWeight="300">Pressure</Typography>
+              <Typography fontSize="1.2rem">{pressure}</Typography>
+            </Box>
+
+            <Box>
+              <Typography fontWeight="300">Humadity</Typography>
+              <Typography fontSize="1.2rem">{humidity}</Typography>
+            </Box>
           </Box>
 
-          <Box>
-            <Typography fontWeight="200">Humadity</Typography>
-            <Typography fontSize="1.5rem">{`${humidity}%`}</Typography>
+          <Box color="#fa7900">
+            <Box>
+              <Typography fontWeight="300">Sunrise</Typography>
+              <Typography fontSize="1.2rem">
+                {getHour(sunrise, timezone)}
+              </Typography>
+            </Box>
+
+            <Box>
+              <Typography fontWeight="300">Sunset</Typography>
+              <Typography fontSize="1.2rem">
+                {getHour(sunset, timezone)}
+              </Typography>
+            </Box>
+          </Box>
+
+          <Box color="#0092FE">
+            <Box>
+              <Typography fontWeight="300">Clouds</Typography>
+              <Typography fontSize="1.2rem">{`${clouds}%`}</Typography>
+            </Box>
+
+            <Box>
+              <Typography fontWeight="300">Rain</Typography>
+              <Typography fontSize="1.2rem">
+                {rain ? `${rain}mm` : "0mm"}
+              </Typography>
+            </Box>
           </Box>
         </AccordionDetails>
       </Accordion>

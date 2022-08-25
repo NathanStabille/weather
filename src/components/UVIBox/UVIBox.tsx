@@ -36,6 +36,9 @@ export const UVIBox = () => {
       case 10:
         setUvi({ uv: "Very High", color: "#D60000" });
         break;
+
+      default:
+        setUvi({ uv: "Extreme", color: "#5E30EB" });
     }
   };
 
@@ -52,7 +55,7 @@ export const UVIBox = () => {
       padding={2}
       border={`2px solid ${uvi.color}`}
     >
-      <img src={sun} alt="sun" style={{ width: "90px", margin: "0px 15px" }} />
+      <img src={sun} alt="sun" style={{ width: "90px" }} />
       <Box display="flex" flexDirection="column" ml={3}>
         <Box display="flex" alignItems="center">
           <Typography fontSize="2rem">

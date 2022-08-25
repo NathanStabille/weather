@@ -18,6 +18,7 @@ export type CurrentWeatherType = {
   dateHour: number;
   uvi: number;
   feelsLike: number;
+  dt: number;
 };
 
 export type DailyWeatherType = {
@@ -27,6 +28,7 @@ export type DailyWeatherType = {
   moonrise: number;
   moonset: number;
   moonPhase: number;
+  timezone: string;
 
   tempDay: number;
   tempMin: number;

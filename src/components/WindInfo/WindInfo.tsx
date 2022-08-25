@@ -82,7 +82,7 @@ export const WindInfo = () => {
               borderRadius={3}
               paddingX={1}
             >
-              {`${dailyWeather.rain}mm`}
+              {`${dailyWeather.rain ? dailyWeather.rain : "0"}mm`}
             </Typography>
           </Box>
         </Box>
@@ -116,7 +116,7 @@ export const WindInfo = () => {
                 {getDirection(currentWeather.windDeg)}
               </Typography>
               <Typography ml={5} fontWeight="300">
-                {units === "c"
+                {units === "metric"
                   ? `${(currentWeather.windSpeed * 3.6).toFixed(1)} km/h`
                   : `${currentWeather.windSpeed} mph`}
               </Typography>

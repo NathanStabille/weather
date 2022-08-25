@@ -1,8 +1,8 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 
 interface IUnitsContenxtData {
-  units: "c" | "f";
-  setUnits: (units: "c" | "f") => void;
+  units: "metric" | "imperial";
+  setUnits: (units: "metric" | "imperial") => void;
 }
 
 interface IUnitsProviderProps {
@@ -16,7 +16,7 @@ export const useUnitsContext = () => {
 };
 
 export const UnitsProvider: React.FC<IUnitsProviderProps> = ({ children }) => {
-  const [units, setUnits] = useState<"c" | "f">("c");
+  const [units, setUnits] = useState<"metric" | "imperial">("metric");
 
   return (
     <UnitsContext.Provider value={{ units, setUnits }}>

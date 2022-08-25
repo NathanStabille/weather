@@ -47,15 +47,19 @@ export const CurrentWeather = () => {
               paddingX: 1,
             }}
           >
-            {`${Math.round(currentWeather.feelsLike)}°${units.toUpperCase()}`}
+            {`${Math.round(currentWeather.feelsLike)}°${
+              units === "metric" ? "C" : "F"
+            }`}
           </Typography>
         </Box>
       </Box>
 
       {/* Temp */}
-      <Typography marginTop={5} fontSize="3rem">{`${Math.round(
-        currentWeather.temp
-      )}°${units.toUpperCase()} `}</Typography>
+      <Typography marginTop={5} fontSize="3rem">
+        {`${Math.round(currentWeather.temp)}°${
+          units === "metric" ? "C" : "F"
+        } `}
+      </Typography>
 
       {/* climate */}
       <Typography marginBottom={6} textTransform="capitalize">
@@ -84,7 +88,7 @@ export const CurrentWeather = () => {
         >
           <Typography fontWeight="200">Visibility</Typography>
           <Typography fontSize="1.5rem">
-            {units === "c"
+            {units === "metric"
               ? `${(currentWeather.visibility / 1000).toFixed(1)} km`
               : `${(currentWeather.visibility * 0.000621371192).toFixed(1)} mi`}
           </Typography>
