@@ -15,13 +15,18 @@ export const SunsetSunrise = () => {
   const theme = useTheme();
   const { dailyWeather } = useWeatherContext();
   const lgDown = useMediaQuery(theme.breakpoints.down("lg"));
+  const smDown = useMediaQuery(theme.breakpoints.down("sm"));
 
   const getHour = (unix: number, zone: string, format = "t") =>
     DateTime.fromSeconds(unix).setZone(zone).toFormat(format);
 
   return (
     <Box width="150px" mr={lgDown ? -3 : 0}>
-      <Box display="flex" alignItems="center" justifyContent="space-between">
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent={smDown ? "center" : "space-between"}
+      >
         <Box className="hot">
           <span className="sun"></span>
           <span className="sunx"></span>

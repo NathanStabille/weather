@@ -15,7 +15,7 @@ export const MoonsetMoonrise = () => {
   const { dailyWeather, currentWeather } = useWeatherContext();
 
   const theme = useTheme();
-  const lgDown = useMediaQuery(theme.breakpoints.down("lg"));
+  const smDown = useMediaQuery(theme.breakpoints.down("sm"));
 
   const getHour = (unix: number, zone: string, format = "t") =>
     DateTime.fromSeconds(unix).setZone(zone).toFormat(format);
@@ -25,7 +25,7 @@ export const MoonsetMoonrise = () => {
       width="150px"
       display="flex"
       alignItems="center"
-      justifyContent="space-between"
+      justifyContent={smDown? 'center':"space-between"}
       ml={3}
       
     >

@@ -8,19 +8,31 @@ export const CurrentWeather = () => {
   const { currentWeather } = useWeatherContext();
   const { units } = useUnitsContext();
 
+  const smDown = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <Box
       maxWidth="550px"
       width="100%"
       borderRadius="30px"
-      padding={5}
+      padding={smDown ? 2 : 5}
       display="flex"
       flexDirection="column"
-      boxShadow="0 4px 30px rgba(0, 0, 0, 0.1)"
-      bgcolor={theme.palette.primary.light}
+      boxShadow={smDown ? "none" : "0 4px 30px rgba(0, 0, 0, 0.1)"}
+      bgcolor={smDown ? "transparent" : theme.palette.primary.light}
     >
-      <Box display="flex" alignItems="center" justifyContent="space-between">
-        <Box display="flex" alignItems="center">
+      <Box
+        display="flex"
+        alignItems="center"
+        textAlign={smDown ? "center" : "left"}
+        justifyContent="space-between"
+        flexDirection={smDown ? "column" : "row"}
+      >
+        <Box
+          display="flex"
+          alignItems="center"
+          flexDirection={smDown ? "column" : "row"}
+        >
           <img
             src={`http://openweathermap.org/img/wn/${currentWeather.icon}@2x.png`}
             alt=""
@@ -31,19 +43,25 @@ export const CurrentWeather = () => {
             }}
           />
 
-          <Box ml={2}>
+          <Box ml={smDown ? 0 : 2}>
             <Typography fontSize="1.5rem">Weather</Typography>
             <Typography>What's the weather.</Typography>
           </Box>
         </Box>
 
         {/* FeelsLike */}
-        <Box display="flex" alignItems="center">
-          <Typography mr={1}>Feels Like</Typography>
+        <Box
+          display="flex"
+          alignItems="center"
+          flexDirection={smDown ? "column" : "row"}
+        >
+          <Typography mr={smDown ? 0 : 1}>Feels Like</Typography>
           <Typography
             fontSize="1.3rem"
             sx={{
-              backgroundColor: theme.palette.background.paper,
+              backgroundColor: smDown
+                ? theme.palette.primary.dark
+                : theme.palette.background.paper,
               borderRadius: 3,
               paddingX: 1,
             }}
@@ -56,45 +74,53 @@ export const CurrentWeather = () => {
       </Box>
 
       {/* Temp */}
-      <Typography marginTop={5} fontSize="3rem">
+      <Typography
+        marginTop={5}
+        fontSize="3rem"
+        textAlign={smDown ? "center" : "left"}
+      >
         {`${Math.round(currentWeather.temp)}°${
           units === "metric" ? "C" : "F"
         } `}
       </Typography>
 
       {/* climate */}
-      <Typography marginBottom={6} textTransform="capitalize">
+      <Typography
+        marginBottom={6}
+        textTransform="capitalize"
+        textAlign={smDown ? "center" : "left"}
+      >
         {currentWeather.description}
       </Typography>
 
       <Box display="flex" width="100%" justifyContent="space-between">
         {/* pressure */}
         <Box
-          padding={3}
-          bgcolor={theme.palette.text.primary}
-          color={theme.palette.background.paper}
+          padding={smDown ? 1 : 3}
+          bgcolor={theme.palette.primary.dark}
+          color={theme.palette.text.primary}
           borderRadius={5}
           textAlign="center"
           width="100%"
-          mr={3}
+          mr={smDown ? 1 : 3}
         >
           <Typography fontWeight="200">Pressure</Typography>
-          <Typography fontSize="1.5rem">{`${
+          <Typography fontSize={smDown ? "1rem" : "1.5rem"}>{`${
             currentWeather.pressure ? currentWeather.pressure : "0"
           }mb`}</Typography>
         </Box>
 
         {/* visibility */}
         <Box
-          padding={3}
+          padding={smDown ? 1 : 3}
           bgcolor={theme.palette.primary.dark}
           borderRadius={5}
           textAlign="center"
           width="100%"
-          mr={3}
+          mr={smDown ? 1 : 3}
         >
           <Typography fontWeight="200">Visibility</Typography>
-          <Typography fontSize="1.5rem">
+          <Typography fontSize={smDown ? "1rem" : "1.5rem"}>
             {units === "metric"
               ? `${(currentWeather.visibility / 1000).toFixed(1)} km`
               : `${(currentWeather.visibility * 0.000621371192).toFixed(1)} mi`}
@@ -103,15 +129,15 @@ export const CurrentWeather = () => {
 
         {/* humadity */}
         <Box
-          padding={3}
-          bgcolor={theme.palette.text.secondary}
+          padding={smDown ? 1 : 3}
+          bgcolor={theme.palette.primary.dark}
           color={theme.palette.text.primary}
           borderRadius={5}
           textAlign="center"
           width="100%"
         >
           <Typography fontWeight="200">Humadity</Typography>
-          <Typography fontSize="1.5rem">{`${
+          <Typography fontSize={smDown ? "1rem" : "1.5rem"}>{`${
             currentWeather.humidity ? currentWeather.humidity : "0"
           }%`}</Typography>
         </Box>

@@ -10,6 +10,7 @@ export const Temperature = () => {
   const theme = useTheme();
 
   const lgDown = useMediaQuery(theme.breakpoints.down("lg"));
+  const smDown = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
     <Box
@@ -17,22 +18,28 @@ export const Temperature = () => {
       width="100%"
       borderRadius="30px"
       padding={3}
-      boxShadow="0 4px 30px rgba(0, 0, 0, 0.1)"
       ml={lgDown ? 0 : "5%"}
       mt={lgDown ? 5 : 0}
       display="flex"
       flexDirection="column"
       justifyContent="space-between"
       alignItems="center"
-      bgcolor={theme.palette.primary.light}
+      boxShadow={smDown ? "none" : "0 4px 30px rgba(0, 0, 0, 0.1)"}
+      bgcolor={smDown ? "transparent" : theme.palette.primary.light}
     >
       <Box
         width="100%"
         display="flex"
         alignItems="center"
         justifyContent="space-between"
+        textAlign={smDown ? "center" : "left"}
+        flexDirection={smDown ? "column" : "row"}
       >
-        <Box display="flex" alignItems="center">
+        <Box
+          display="flex"
+          alignItems="center"
+          flexDirection={smDown ? "column" : "row"}
+        >
           <img
             src={thermometer}
             alt="thermometer"
@@ -43,7 +50,7 @@ export const Temperature = () => {
               padding: 5,
             }}
           ></img>
-          <Typography fontSize="1.5rem" ml={3}>
+          <Typography fontSize="1.5rem" ml={smDown ? 0 : 3}>
             Temperature
           </Typography>
         </Box>
@@ -52,8 +59,7 @@ export const Temperature = () => {
           paddingX={2}
           paddingY={1}
           borderRadius={5}
-          ml={5}
-         
+          ml={smDown ? 0 : 5}
         >
           <Typography fontSize="1.5rem">
             {` Max  ${Math.round(dailyWeather.tempMax)}°${

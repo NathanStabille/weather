@@ -9,6 +9,7 @@ import {
   Button,
   IconButton,
   TextField,
+  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import { ChangeEvent, useEffect, useState } from "react";
@@ -32,6 +33,8 @@ interface IAutoCompleteData {
 
 export const SearchCity = () => {
   const theme = useTheme();
+
+  const smDown = useMediaQuery(theme.breakpoints.down("sm"));
 
   //contexts -----------------------------------------------------
   const { themeName, toggleTheme } = useAppThemeContext();
@@ -142,11 +145,16 @@ export const SearchCity = () => {
   return (
     <Box
       display="flex"
+      flexDirection={smDown ? "column" : "row"}
       justifyContent="space-between"
       alignItems="center"
       mb={3}
     >
-      <Box display="flex" justifySelf="flex-start">
+      <Box
+        display="flex"
+        justifySelf="flex-start"
+        alignSelf={smDown ? "flex-start" : "center"}
+      >
         <IconButton
           onClick={toggleTheme}
           sx={{ color: theme.palette.text.primary }}
@@ -158,8 +166,13 @@ export const SearchCity = () => {
           )}
         </IconButton>
       </Box>
-
-      <TimeAndLocation />
+      <Box
+        mb={smDown ? 3 : 0}
+        display="flex"
+        alignSelf={smDown ? "flex-start" : "center"}
+      >
+        <TimeAndLocation />
+      </Box>
       {/* input */}
 
       <Box display="flex">
@@ -168,7 +181,7 @@ export const SearchCity = () => {
           borderRadius={6}
           paddingX={2}
           display="flex"
-          width="30vw"
+          width={smDown ? "70vw" : "30vw"}
         >
           <Autocomplete
             autoComplete
