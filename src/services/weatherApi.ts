@@ -4,7 +4,7 @@ export const getDailyWeather = async (
   units = "metric"
 ) => {
   const response = await fetch(
-    ` https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=current,minutely,hourly,alerts&appid=1fa9ff4126d95b8db54f3897a208e91c&units=${units}`
+    ` https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=current,minutely,hourly,alerts&appid=${process.env.REACT_WEATHER_API_KEY}&units=${units}`
   ).then((res) => res.json());
 
   const daily = response.daily[0];
@@ -53,7 +53,7 @@ export const getCurrentWeather = async (
   units = "metric"
 ) => {
   const response = await fetch(
-    ` https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=daily,minutely,hourly,alerts&appid=1fa9ff4126d95b8db54f3897a208e91c&units=${units}`
+    ` https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=daily,minutely,hourly,alerts&appid=${process.env.REACT_WEATHER_API_KEY}&units=${units}`
   ).then((res) => res.json());
 
   return {
@@ -84,7 +84,7 @@ export const getForecastWeather = async (
   units = "metric"
 ) => {
   const response = await fetch(
-    ` https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=current,minutely,hourly,alerts&appid=1fa9ff4126d95b8db54f3897a208e91c&units=${units}`
+    ` https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=current,minutely,hourly,alerts&appid=${process.env.REACT_WEATHER_API_KEY}=${units}`
   ).then((res) => res.json());
 
   const daily = response.daily.slice(1);
