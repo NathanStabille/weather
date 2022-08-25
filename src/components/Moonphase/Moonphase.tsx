@@ -44,7 +44,7 @@ export const Moonphase = () => {
   };
 
   return (
-    <Box className="stormy" mt={lgDown ? 5 : 2} mb={lgDown ? 5 : 0}>
+    <Box className="stormy" mt={lgDown ? 5 : 2} mb={lgDown ? 5 : 0} color="#FFF">
       {moon ? <img src={setMoon()?.phase} alt="moon" /> : <CircularProgress />}
 
       <Box ml={3}>

@@ -13,11 +13,12 @@ export const Temperature = () => {
 
   return (
     <Box
-      width="550px"
+      maxWidth="550px"
+      width="100%"
       borderRadius="30px"
       padding={3}
       boxShadow="0 4px 30px rgba(0, 0, 0, 0.1)"
-      ml={lgDown ? 0 : 10}
+      ml={lgDown ? 0 : "5%"}
       mt={lgDown ? 5 : 0}
       display="flex"
       flexDirection="column"
@@ -51,6 +52,8 @@ export const Temperature = () => {
           paddingX={2}
           paddingY={1}
           borderRadius={5}
+          ml={5}
+         
         >
           <Typography fontSize="1.5rem">
             {` Max  ${Math.round(dailyWeather.tempMax)}°${

@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery } from "@mui/material";
 import { useWeatherContext } from "../../context/WeatherContext";
 import { PredictionBox } from "../PredictionBox/PredictionBox";
 import { DailyWeatherType } from "../../types/WeatherTypes";
@@ -6,20 +6,22 @@ import { DailyWeatherType } from "../../types/WeatherTypes";
 export const WeatherPrediction = () => {
   const { forecastFormatted, currentWeather } = useWeatherContext();
 
+  const xlDown = useMediaQuery("(max-width:1400px)");
+
   return (
     <Box
-      height="100vh"
       width="100%"
       display="flex"
       flexDirection="column"
       alignItems="center"
       justifyContent="center"
+      overflow={xlDown ? "" : "auto"}
     >
       <Typography fontSize="2.5rem" marginY={2} textAlign="center">
         Weather Preditction
       </Typography>
 
-      {forecastFormatted.map((item: DailyWeatherType) => {
+      {forecastFormatted.map((item: DailyWeatherType, index: number) => {
         return (
           <PredictionBox
             iconName={item.weatherIcon}
@@ -35,6 +37,7 @@ export const WeatherPrediction = () => {
             rain={item.rain}
             sunset={item.sunset}
             sunrise={item.sunrise}
+            key={index}
           />
         );
       })}

@@ -5,6 +5,7 @@ import {
   AccordionSummary,
   Box,
   Typography,
+  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import { DateTime } from "luxon";
@@ -23,6 +24,7 @@ interface IPredictionBoxProps {
   rain: number;
   sunset: number;
   sunrise: number;
+  key: number;
 }
 
 export const PredictionBox = ({
@@ -43,6 +45,8 @@ export const PredictionBox = ({
   const theme = useTheme();
 
   const getDate = (dt: number) => DateTime.fromSeconds(dt).toFormat("cccc, dd");
+  const xlDown = useMediaQuery("(max-width:1400px)");
+
 
   const getHour = (unix: number, zone: string, format = "t") =>
     DateTime.fromSeconds(unix).setZone(zone).toFormat(format);
@@ -75,7 +79,8 @@ export const PredictionBox = ({
             <Box display="flex" alignItems="center">
               <img
                 src={`http://openweathermap.org/img/wn/${iconName}@2x.png`}
-                alt=""
+                alt="weatherIMG"
+                style={{width: xlDown? '100px' : '5vw'}}
               />
               <Box
                 display="flex"
@@ -87,13 +92,13 @@ export const PredictionBox = ({
                 </Typography>
 
                 <Typography fontSize="1.5rem">{forecastWeather}</Typography>
-                <Typography fontSize="1rem" fontWeight="300">
+                <Typography fontSize="1rem" fontWeight="300" textTransform='capitalize'>
                   {weatherDescription}
                 </Typography>
               </Box>
             </Box>
-            <Typography fontSize="2rem" color={theme.palette.primary.dark}>
-              {`${Math.round(tempMax)}° / ${Math.round(tempMin)}°`}
+            <Typography fontSize={xlDown ? "2rem" : '2vw'} color={theme.palette.primary.dark} textAlign='center'>
+              {`${Math.round(tempMax)}°/ ${Math.round(tempMin)}°`}
             </Typography>
           </Box>
         </AccordionSummary>

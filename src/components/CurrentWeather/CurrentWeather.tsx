@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useUnitsContext } from "../../context/UnitsContext";
 import { useWeatherContext } from "../../context/WeatherContext";
 
@@ -10,7 +10,8 @@ export const CurrentWeather = () => {
 
   return (
     <Box
-      width="550px"
+      maxWidth="550px"
+      width="100%"
       borderRadius="30px"
       padding={5}
       display="flex"
@@ -74,9 +75,13 @@ export const CurrentWeather = () => {
           color={theme.palette.background.paper}
           borderRadius={5}
           textAlign="center"
+          width="100%"
+          mr={3}
         >
           <Typography fontWeight="200">Pressure</Typography>
-          <Typography fontSize="1.5rem">{`${currentWeather.pressure}mb`}</Typography>
+          <Typography fontSize="1.5rem">{`${
+            currentWeather.pressure ? currentWeather.pressure : "0"
+          }mb`}</Typography>
         </Box>
 
         {/* visibility */}
@@ -85,6 +90,8 @@ export const CurrentWeather = () => {
           bgcolor={theme.palette.primary.dark}
           borderRadius={5}
           textAlign="center"
+          width="100%"
+          mr={3}
         >
           <Typography fontWeight="200">Visibility</Typography>
           <Typography fontSize="1.5rem">
@@ -101,9 +108,12 @@ export const CurrentWeather = () => {
           color={theme.palette.text.primary}
           borderRadius={5}
           textAlign="center"
+          width="100%"
         >
           <Typography fontWeight="200">Humadity</Typography>
-          <Typography fontSize="1.5rem">{`${currentWeather.humidity}%`}</Typography>
+          <Typography fontSize="1.5rem">{`${
+            currentWeather.humidity ? currentWeather.humidity : "0"
+          }%`}</Typography>
         </Box>
       </Box>
     </Box>

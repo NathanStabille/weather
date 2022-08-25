@@ -22,10 +22,12 @@ export const MoonsetMoonrise = () => {
 
   return (
     <Box
+      width="150px"
       display="flex"
       alignItems="center"
       justifyContent="space-between"
-      ml={5}
+      ml={3}
+      
     >
       <Box className="night">
         <span className="moon"></span>
